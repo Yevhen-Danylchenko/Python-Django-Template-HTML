@@ -1,0 +1,46 @@
+<html>
+<head>
+    <tilte>Список машин</tilte>
+</head>
+<body>
+    <h1>Інформація про машини</h1>
+<!--    {% if cars %}-->
+<!--        <ol>-->
+<!--            {% for car_id, car in cars.items %}-->
+<!--                <li>-->
+<!--                    <strong>ID: {{ car_id }}</strong>-->
+<!--                    <ul>-->
+<!--                        {% for key, value in car.items %}-->
+<!--                            <li>{{ key }} : {{ value }}</li>-->
+<!--                        {% endfor %}-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--            <hr>-->
+<!--            {% endfor %}-->
+<!--        </ol>-->
+<!--    {% endif %}-->
+    {% if cars %}
+    <table style="width: 400px; margin-bottom: 30px" border="3">
+        <tr style="height: 40px">
+            <th>Параметр</th>
+            <th>Значення</th>
+        </tr>
+        {% for car_id, car in cars.items %}
+        <tr style="height: 40px">
+            <td>ID</td>
+            <td>{{ car_id }}</td>
+        </tr>
+        {% for key, value in car.items %}
+        <tr style="height: 40px">
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>Автомобіль не знайдено.</p>
+    {% endif %}
+    <a href="{% url 'app:show_info' %}">Назад до списку</a>
+</body>
+</html>
