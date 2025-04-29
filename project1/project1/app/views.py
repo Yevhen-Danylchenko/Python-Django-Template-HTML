@@ -10,7 +10,7 @@ def show_car_by_id(request, car_id):
     }
     # if car_id in cars:
     #     context[cars] = cars[car_id]
-    return render(request, 'app/car_details.html', context)
+    return render(request, 'app/show_car_by_id.html', context)
 
 
 cars = {
@@ -73,21 +73,18 @@ def hello_world(request):
 
 
 def show_info(request):
-    # info = """
-    # <h1>Інформація про машини</h1>
-    # <ul>
-    #     <li>Марка: VW. Модель: Passat b5. Рік: 2007. Ціна: $6500. </li>
-    #     <li>Марка: VW. Модель:  Golf 6. Рік: 2012. Ціна: $6900. </li>
-    #     <li>Марка: Audi. Модель: a4. Рік: 2012. Ціна: $12500. </li>
-    # </ul>
-    # """
-    # return HttpResponse(info)
+
     context = {
         'cars':cars
     }
 
     return render(request, 'app/car_list.html', context)
 
+def show_details(request):
+    context = {
+        'cars':cars
+    }
+    return render(request, 'app/car_details.html', context)
 
 def say_hello(request, name):
     return HttpResponse(f"Hello, {name}")

@@ -3,13 +3,29 @@
    <title>Інформація про машини</title>
 </head>
 <body>
-    <h2>Інформація про машину</h2>
-    <p>ID машини: {{ car_id }}</p>
-    {% if car %}
-        <p>Марка машини: {{ car.Марка }}</p>
-        <p>Модель машини: {{ car.Модель }}</p>
-        <p>Рік машини: {{ car.Рік }}</p>
-        <p>Ціна машини: {{ car.Ціна }}</p>
+    <h1>Інформація про машини</h1>
+    {% if cars %}
+    <table style="width: 400px; margin-bottom: 30px" border="3">
+        <tr style="height: 40px">
+            <th>Параметр</th>
+            <th>Значення</th>
+        </tr>
+        {% for car_id, car in cars.items %}
+        <tr style="height: 40px">
+            <td>ID</td>
+            <td>{{ car_id }}</td>
+        </tr>
+        {% for key, value in car.items %}
+        <tr style="height: 40px">
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>Автомобіль не знайдено.</p>
     {% endif %}
+    <a href="{% url 'app:show_info' %}">Назад до списку</a>
 </body>
 </html>
