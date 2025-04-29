@@ -1,15 +1,16 @@
-<html>
-<head>
-    <tilte>Список машин</tilte>
-</head>
-<body>
+{% extends 'app/base.html' %}
+
+{% block title %} Список машин {% endblock %}
+
+{% block content %}
     <h1>Інформація про машини</h1>
     {% if cars %}
-        <ol>
+        <ol class="list">
             {% for car_id, car in cars.items %}
                 <li>
-                    <strong>ID: {{ car_id }}</strong>
-                    <ul>
+<!--                    <strong>ID: {{ car_id }}</strong>-->
+                    <a href="{% url 'app:show_car_by_id' car_id=car_id %}"><strong>ID: {{ car_id }}</strong></a>
+                    <ul class="list">
                         {% for key, value in car.items %}
                             <li>{{ key }} : {{ value }}</li>
                         {% endfor %}
@@ -19,7 +20,30 @@
             {% endfor %}
         </ol>
     {% endif %}
+{% endblock %}
 
-    <a href="{% url 'app:show_details' %}">Перейти до таблиці</a>
-</body>
-</html>
+<!--<html>-->
+<!--<head>-->
+<!--    <tilte>Список машин</tilte>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Інформація про машини</h1>-->
+<!--    {% if cars %}-->
+<!--        <ol>-->
+<!--            {% for car_id, car in cars.items %}-->
+<!--                <li>-->
+<!--                    <strong>ID: {{ car_id }}</strong>-->
+<!--                    <ul>-->
+<!--                        {% for key, value in car.items %}-->
+<!--                            <li>{{ key }} : {{ value }}</li>-->
+<!--                        {% endfor %}-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--            <hr>-->
+<!--            {% endfor %}-->
+<!--        </ol>-->
+<!--    {% endif %}-->
+
+<!--    <a href="{% url 'app:show_details' %}">Перейти до таблиці</a>-->
+<!--</body>-->
+<!--</html>-->

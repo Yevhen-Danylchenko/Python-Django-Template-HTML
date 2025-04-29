@@ -1,0 +1,57 @@
+{% extends 'app/base.html' %}
+
+{% block title %} Результати пошуку {% endblock %}
+
+{% block content %}
+    <h2>Результати пошуку</h2>
+    <p>
+        Знайдені автомобілі з ціною від <strong>{{ min_price|default:0 }}</strong> до <strong>{{ max_price|default:"Без обмежень" }}</strong>
+    </p>
+    {% if filtered_cars %}
+        <h3>Знайдено {{ filtered_cars|length }}</h3>
+        <ol class="list">
+            {% for car in filtered_cars %}
+                <li>
+                    <ul class="list">
+                        {% for key, value in car.items %}
+                            <li>{{ key|upper }} : {{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            <hr>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>За вашими крітеріями не знайдено жодного авто</p>
+    {% endif %}
+{% endblock %}
+
+
+<!--<html>-->
+<!--<head>-->
+<!--    <title>Результати пошуку</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h2>Результати пошуку</h2>-->
+<!--    <p>-->
+<!--        Знайдені автомобілі з ціною від <strong>{{ min_price|default:0 }}</strong> до <strong>{{ max_price|default:"Без обмежень" }}</strong>-->
+<!--    </p>-->
+<!--    {% if filtered_cars %}-->
+<!--        <h3>Знайдено {{ filtered_cars|length }}</h3>-->
+<!--        <ol>-->
+<!--            {% for car in filtered_cars %}-->
+<!--                <li>-->
+<!--                    <ul>-->
+<!--                        {% for key, value in car.items %}-->
+<!--                            <li>{{ key|upper }} : {{ value }}</li>-->
+<!--                        {% endfor %}-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--            <hr>-->
+<!--            {% endfor %}-->
+<!--        </ol>-->
+<!--    {% else %}-->
+<!--        <p>За вашими крітеріями не знайдено жодного авто</p>-->
+<!--    {% endif %}-->
+<!--</body>-->
+<!--</html>-->

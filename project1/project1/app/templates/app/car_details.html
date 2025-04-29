@@ -1,8 +1,8 @@
-<html>
-<head>
-   <title>Інформація про машини</title>
-</head>
-<body>
+{% extends 'app/base.html' %}
+
+{% block title %} Детальніше про машини {% endblock %}
+
+{% block content %}
     <h1>Інформація про машини</h1>
     {% if cars %}
     <table style="width: 400px; margin-bottom: 30px" border="3">
@@ -26,6 +26,36 @@
     {% else %}
         <p>Автомобіль не знайдено.</p>
     {% endif %}
-    <a href="{% url 'app:show_info' %}">Назад до списку</a>
-</body>
-</html>
+{% endblock %}
+
+<!--<html>-->
+<!--<head>-->
+<!--   <title>Інформація про машини</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Інформація про машини</h1>-->
+<!--    {% if cars %}-->
+<!--    <table style="width: 400px; margin-bottom: 30px" border="3">-->
+<!--        <tr style="height: 40px">-->
+<!--            <th>Параметр</th>-->
+<!--            <th>Значення</th>-->
+<!--        </tr>-->
+<!--        {% for car_id, car in cars.items %}-->
+<!--        <tr style="height: 40px">-->
+<!--            <td>ID</td>-->
+<!--            <td>{{ car_id }}</td>-->
+<!--        </tr>-->
+<!--        {% for key, value in car.items %}-->
+<!--        <tr style="height: 40px">-->
+<!--            <td>{{ key }}</td>-->
+<!--            <td>{{ value }}</td>-->
+<!--        </tr>-->
+<!--        {% endfor %}-->
+<!--        {% endfor %}-->
+<!--    </table>-->
+<!--    {% else %}-->
+<!--        <p>Автомобіль не знайдено.</p>-->
+<!--    {% endif %}-->
+<!--    <a href="{% url 'app:show_info' %}">Назад до списку</a>-->
+<!--</body>-->
+<!--</html>-->
