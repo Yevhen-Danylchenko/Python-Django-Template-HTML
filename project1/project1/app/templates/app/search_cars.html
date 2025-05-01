@@ -3,10 +3,22 @@
 {% block title %} Результати пошуку {% endblock %}
 
 {% block content %}
+    <h1>Пошук авто</h1>
+    <form method="GET">
+        {{ form.as_p }}
+        {{ form_year.as_p }}
+        {{ form_model.as_p }}
+        {{ form_mark.as_p }}
+        <button type="submit" class="btn-primary">Пошук</button>
+    </form>
+
     <h2>Результати пошуку</h2>
-    <p>
-        Знайдені автомобілі з ціною від <strong>{{ min_price|default:0 }}</strong> до <strong>{{ max_price|default:"Без обмежень" }}</strong>
-    </p>
+<!--    <p>-->
+<!--        Знайдені автомобілі з ціною від <strong>{{ min_price|default:0 }}</strong> до <strong>{{ max_price|default:"Без обмежень" }}</strong>-->
+<!--    </p>-->
+<!--    <p>-->
+<!--        Знайдені автомобілі з роком випуску <strong>{{ min_year|default:0 }}</strong> до <strong>{{ max_year|default:"Без обмежень" }}</strong>-->
+<!--    </p>-->
     {% if filtered_cars %}
         <h3>Знайдено {{ filtered_cars|length }}</h3>
         <ol class="list">

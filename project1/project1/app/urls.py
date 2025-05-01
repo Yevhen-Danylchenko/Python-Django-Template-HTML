@@ -4,7 +4,7 @@ from . import views
 app_name = "app"
 
 urlpatterns = [
-path('', views.hello_world, name='hello_world'),#http://127.0.0.1:8000
+    path('', views.hello_world, name='hello_world'),#http://127.0.0.1:8000
     path('info/', views.show_info, name='show_info'),#http://127.0.0.1:8000/info
     path('details/', views.show_details, name='show_details'), #http://127.0.0.1:8000/details
     path('hello/<str:name>/', views.say_hello, name='say_hello'),#http://127.0.0.1:8000/hello/Ігор

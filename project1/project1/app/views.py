@@ -1,15 +1,16 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from project1.app.forms import CarSearchForm, CarSearchFormYear, CarSearchFormModel, CarSearchFormMark
+
 
 def show_car_by_id(request, car_id):
-    # return HttpResponse(car[car_id])
+
     context = {
         'car_id': car_id,
         'car': cars[car_id]
     }
-    # if car_id in cars:
-    #     context[cars] = cars[car_id]
+
     return render(request, 'app/show_car_by_id.html', context)
 
 
@@ -17,71 +18,53 @@ cars = {
     1: {
         "Марка": "VW",
         "Модель": "Passat b5",
-        "Рік": "2007",
+        "Рік": 2007,
         "Ціна": 5000
     },
     2: {
         "Марка": "VW",
         "Модель": "Golf 5",
-        "Рік": "2012",
+        "Рік": 2012,
         "Ціна": 7000
     },
     3: {
         "Марка": "Audi",
         "Модель": "A4",
-        "Рік": "2012",
+        "Рік": 2012,
         "Ціна": 12000
     }
 }
 
-
 def search_cars(request):
-    min_price = request.GET.get("min_price", "0")
-    max_price = request.GET.get("max_price", "999999")
-
     filtered_cars = []
 
-    try:
-        min_price = int(min_price)
-        max_price = int(max_price)
+    form = CarSearchForm(request.GET or None)
+    form_year = CarSearchFormYear(request.GET or None)
+    form_model = CarSearchFormModel(request.GET or None)
+    form_mark = CarSearchFormMark(request.GET or None)
+    if form.is_valid() and form_year.is_valid() and form_model.is_valid() and form_mark.is_valid():
+        min_price = form.cleaned_data.get('min_price', 0) or 0
+        max_price = form.cleaned_data.get('max_price') or float('inf')
+        min_year = form_year.cleaned_data.get('min_year', 0) or 0
+        max_year = form_year.cleaned_data.get('max_year') or float('inf')
+        model_car = form_model.cleaned_data.get('model', '').lower()
+        mark_car = form_mark.cleaned_data.get('mark', '').lower()
 
         for car_id, car in cars.items():
-            if min_price <= car["Ціна"] <= max_price:
+            if (min_price <= car["Ціна"] <= max_price and min_year <= car["Рік"] <= max_year
+                and model_car in car["Модель"].lower() and mark_car in car["Марка"].lower()):
                 filtered_cars.append(car)
-    except ValueError:
-        # return HttpResponse("Некоректні параметри ціни")
-        pass
 
     context = {
-        'min_price':min_price,
-        'max_price':max_price,
-        'filtered_cars':filtered_cars
+        'filtered_cars': filtered_cars,
+        'form': form,
+        'form_year': form_year,
+        'form_model': form_model,
+        'form_mark': form_mark
     }
     return render(request, 'app/search_cars.html', context)
 
-
-    # for car_id, car in cars.items():
-    #     try:
-    #         price = int(car["Ціна($)"].replace("$", ""))
-    #         if min_price <= price <= max_price:
-    #             filtered_cars.append(car)
-    #     except ValueError:
-    #         continue
-
-    result = "<h2>Знайдені авто:</h2>"
-    if filtered_cars:
-        result += "<ul>"
-        for car in filtered_cars:
-            result += f"<li>Марка: {car['Марка']}, Модель: {car['Модель']}, Рік: {car['Рік']}, Ціна: ${car['Ціна($)']}</li>"
-        result += "</ul>"
-    else:
-        result += "<p>Авто не знайдено за заданими критеріями.</p>"
-
-    return HttpResponse(result)
-
-
 def hello_world(request):
-    # return HttpResponse("Hello world of Web Development!")
     return render(request, 'app/index.html')
 
 
