@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from project1.app.forms import CarSearchForm, CarSearchFormYear, CarSearchFormModel, CarSearchFormMark
+from project1.app.forms import CarSearchForm, CarSearchFormYear, CarSearchFormModel, CarSearchFormMark, AddCarForm, \
+    DeleteCarForm, UpdateCarForm
 
 
 def show_car_by_id(request, car_id):
@@ -35,6 +36,8 @@ cars = {
     }
 }
 
+
+
 def search_cars(request):
     filtered_cars = []
 
@@ -63,6 +66,89 @@ def search_cars(request):
         'form_mark': form_mark
     }
     return render(request, 'app/search_cars.html', context)
+
+def add_car(request):
+    form = AddCarForm(request.POST or None)
+
+    if form.is_valid():
+        brand = form.cleaned_data.get('brand')
+        model = form.cleaned_data.get('model')
+        year = form.cleaned_data.get('year')
+        price = form.cleaned_data.get('price')
+
+        next_id = max(cars.keys()) + 1
+        cars[next_id] = {
+            'Марка': brand,
+            'Модель': model,
+            'Рік': year,
+            'Ціна': price
+        }
+
+    context = {
+        'form': form
+    }
+    return render(request, 'app/add_car.html', context)
+
+def delete_car(request):
+    form = DeleteCarForm(request.POST or None)
+
+    if form.is_valid():
+        car_id = form.cleaned_data.get('del_car')
+        if car_id in cars:
+            del cars[car_id]
+
+    context = {
+        'form': form
+    }
+    return render(request, 'app/delete_car.html', context)
+
+def update_car(request):
+    form = UpdateCarForm(request.POST or None)
+
+    if form.is_valid():
+        car_id = form.cleaned_data.get('car_id')
+        brand = form.cleaned_data.get('brand')
+        model = form.cleaned_data.get('model')
+        year = form.cleaned_data.get('year')
+        price = form.cleaned_data.get('price')
+
+        cars[car_id] = {
+            'Марка': brand,
+            'Модель': model,
+            'Рік': year,
+            'Ціна': price
+        }
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'app/update_car.html', context)
+
+# def add_car(request):
+#     form = AddCarForm(request.POST or None)
+#
+#     if form.is_valid():
+#         brand = form.cleaned_data.get('brand')
+#         model = form.cleaned_data.get('model')
+#         year = form.cleaned_data.get('year')
+#         price = form.cleaned_data.get('price')
+#
+#         next_id = max(cars.keys()) + 1
+#
+#         cars[next_id] = {
+#             "Марка": brand,
+#             "Модель": model,
+#             "Рік": year,
+#             "Ціна": price
+#         }
+#
+#     context = {
+#         'form': form
+#     }
+#
+#     return render(request, 'app/add_car.html', context)
+
 
 def hello_world(request):
     return render(request, 'app/index.html')

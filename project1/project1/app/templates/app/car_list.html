@@ -12,7 +12,10 @@
                     <a href="{% url 'app:show_car_by_id' car_id=car_id %}"><strong>ID: {{ car_id }}</strong></a>
                     <ul class="list">
                         {% for key, value in car.items %}
-                            <li>{{ key }} : {{ value }}</li>
+                            <li>
+                                {{ key }} : {{ value }}
+                                <a href="{% url 'app:update_car' %}" class="btn btn-secondary">Оновити автомобіль</a>
+                            </li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -20,6 +23,8 @@
             {% endfor %}
         </ol>
     {% endif %}
+    <a href="{% url 'app:add_car' %}" class="btn btn-secondary">Додати автомобіль</a>
+    <a href="{% url 'app:delete_car' %}" class="btn btn-secondary">Видалити автомобіль</a>
 {% endblock %}
 
 <!--<html>-->

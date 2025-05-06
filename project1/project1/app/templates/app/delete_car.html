@@ -1,0 +1,15 @@
+{% extends 'app/base.html' %}
+
+{% block title %} Видалити автомобіль {% endblock %}
+
+{% block content %}
+    <h1>Видалити автомобіль</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button type="submit" class="btn btn-primary">Видалити</button>
+    </form>
+
+    <a href="{% url 'app:show_info' %}" class="btn btn-secondary">Назад до списку</a>
+{% endblock %}
