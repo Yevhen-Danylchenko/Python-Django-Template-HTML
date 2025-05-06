@@ -14,10 +14,10 @@
                         {% for key, value in car.items %}
                             <li>
                                 {{ key }} : {{ value }}
-                                <a href="{% url 'app:update_car' %}" class="btn btn-secondary">Оновити автомобіль</a>
                             </li>
                         {% endfor %}
                     </ul>
+                    <a href="{% url 'app:update_car' %}" class="btn btn-secondary">Оновити автомобіль</a>
                 </li>
             <hr>
             {% endfor %}
